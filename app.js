@@ -1,4 +1,4 @@
-const http=require("http");
+
 const mongoose=require('mongoose');
 const express = require("express");
 const userRoutes=require('./route')
@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 
 
 app.use("/user",userRoutes);
+
 
 mongoose.connect("mongodb+srv://neha:neha_nirwan26@cluster0.r9kkh.mongodb.net/mongoose_Db?retryWrites=true&w=majority")
 .then(result=>{
