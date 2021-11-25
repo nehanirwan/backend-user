@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DbSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     require: true,
@@ -9,7 +9,7 @@ const DbSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    enum: ["jaipur", "sara"],
+    enum: ["jaipur", "delhi"],
   },
 });
-module.exports = mongoose.model("User", DbSchema);
+module.exports = mongoose.model("User", userSchema);
