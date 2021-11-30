@@ -1,11 +1,12 @@
-const User = require("./Models/Schema");
-const services = require("./Services/Services");
+const User = require("../Models/Schema");
+const services = require("../Services/Services");
+
 
 exports.postAddUser = async (req, res) => {
   const name = req.body.name;
   const age = req.body.age;
   const address = req.body.address;
-  console.log(name,age,address);
+  console.log(name, age, address);
   try {
     const user = await services.postAddUser(name, age, address);
     return res.status(200).json({
@@ -15,21 +16,19 @@ exports.postAddUser = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.json({success:false,message:err.message})
+    return res.json({ success: false, message: err.message });
   }
 };
 exports.postDeleteUserById = async (req, res) => {
-  const pid=req.params.pid
+  const pid = req.params.pid;
+  console.log(pid);
   try {
-     services.postDeleteUserById(pid);
-    return res.status(202).json({ 
-      success: true, 
-      data: pid, 
-      message: "User deleted sucessfully" 
-    });
+    const results = await services.postDeleteUserById(pid);
+
+    return res.json({ results });
   } catch (err) {
     console.log(err);
-    return res.json({success:false,message:err.message})
+    return res.json({ success: false, message: err.message });
   }
 };
 exports.deleteAllUser = async (req, res) => {
@@ -43,22 +42,23 @@ exports.deleteAllUser = async (req, res) => {
   }
 };
 exports.findOneAndUpdate = async (req, res) => {
-  const pid=req.params.id;
-  const{name,address,age}=req.body;
+  const pid = req.params.pid;
+  const address = req.body.address;
   try {
-    if(address==="jaipur"||address==="delhi"){
-     await services.findOneAndUpdate(pid,name,address,age);
-    return res
-      .status(200).json({ success: true, data: User, message: "User updated" });
-    }
-    else{
+    if (address === "jaipur" || address === "delhi") {
+      const result = await services.findOneAndUpdate(pid, req.body);
+      return res
+        .status(200)
+        .json({ success: true, data: result, message: "User updated" });
+    } else {
       return res.json({
-        success:false,
-        message:"Failed to update user",
-      })
+        success: false,
+        data: null,
+        message: "Failed to update user",
+      });
     }
   } catch (err) {
     console.log(err);
-    return res.json({success:false,message:err.message})
+    return res.json({ success: false, data: null, message: err.message });
   }
 };
