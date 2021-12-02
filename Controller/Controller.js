@@ -1,5 +1,7 @@
 const User = require("../Models/Schema");
 const services = require("../Services/Services");
+const transporter=require("../Utils/nodemailer");
+
 
 
 exports.postAddUser = async (req, res) => {
@@ -62,3 +64,23 @@ exports.findOneAndUpdate = async (req, res) => {
     return res.json({ success: false, data: null, message: err.message });
   }
 };
+
+
+exports.sendMailtoUser=(req,res)=>{
+  console.log("hello");
+  const options={
+        from:"neha.nirwan11@gmail.com",
+        to:"neha.nirwan@adglobal360.com",
+        subject:"sending mail with node js",
+        text: 'Node.js testing mail for GeeksforGeeks'
+  }
+  console.log(transporter);
+transporter.sendMail(options, function(err, data) {
+  console.log("hello1");
+  if(err) {
+      console.log(err,'ab');
+  } else {
+      console.log('Email sent successfully');
+  }
+});
+}
