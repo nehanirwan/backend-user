@@ -64,6 +64,19 @@ exports.findOneAndUpdate = async (req, res) => {
     return res.json({ success: false, data: null, message: err.message });
   }
 };
+exports.postlogin=async(req,res)=>{
+  const user={
+    name:'neha',
+    email:'neha.nirwan11@gmail.com'
+  }
+  jwt.sign({user},'secretkey',(err,token)=>{
+    res.json({
+      token
+    })
+
+  });
+
+
 
 
 exports.sendMailtoUser=(req,res)=>{
@@ -83,4 +96,4 @@ transporter.sendMail(options, function(err, data) {
       console.log('Email sent successfully');
   }
 });
-}
+}}
